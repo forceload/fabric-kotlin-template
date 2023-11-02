@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("fabric-loom") version Dependency.Loom.VERSION apply false
+    id("fabric-loom") version Dependency.Loom.VERSION
     kotlin("jvm") version Dependency.Kotlin.VERSION
 }
 
@@ -42,7 +42,7 @@ allprojects {
 }
 
 subprojects {
-    apply("fabric-loom")
+    // apply("fabric-loom")
 
     tasks {
         jar { from("LICENSE") { rename { "${it}_${base.archivesName}" } } }
