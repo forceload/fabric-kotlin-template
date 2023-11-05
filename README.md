@@ -1,0 +1,1 @@
+# FabricMC Kotlin Mod Template
