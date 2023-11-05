@@ -1,11 +1,13 @@
 plugins {
-    id("java")
+    base
 }
 
 group = "io.github.forceload"
 version = "1.0-SNAPSHOT"
 
-base { archivesName.set(project.extra["archives_base_name"] as String + "-server") }
+base {
+    archivesName = project.extra["archives_base_name"] as String + "-server"
+}
 
 repositories {
     mavenCentral()
