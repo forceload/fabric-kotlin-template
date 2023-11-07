@@ -15,7 +15,7 @@
 		"main": [
 			{
 				"adapter": "kotlin",
-				"value": "io.github.forceload.${mod_id}.${mod_entrypoint}"
+				"value": "${group}.${mod_id}.${mod_entrypoint}"
 			}
 		]
 	},

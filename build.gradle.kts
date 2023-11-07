@@ -5,7 +5,7 @@ plugins {
     id("fabric-loom") version Dependency.Loom.VERSION
 }
 
-group = project.extra["group"] as String
+group = providers.gradleProperty("group").get()
 version = project.extra["mod_version"] as String
 
 val fabricLanguageKotlin =
@@ -52,7 +52,7 @@ subprojects {
                     "fabricloader" to project.extra["loader_version"] as String,
                     "fabric_api" to fabricVersion, "fabric_language_kotlin" to fabricLanguageKotlin,
                     "minecraft" to project.extra["minecraft_version"] as String, "java" to Dependency.Java.VERSION,
-                    "mod_id" to project.extra["mod_id"] as String
+                    "mod_id" to project.extra["mod_id"] as String, "group" to project.extra["group"] as String
                 )
             }
 
