@@ -34,6 +34,8 @@ allprojects {
         modImplementation("net.fabricmc.fabric-api", "fabric-api", fabricVersion)
         modImplementation("net.fabricmc", "fabric-language-kotlin", fabricLanguageKotlin)
     }
+
+    kotlin { jvmToolchain(Dependency.Java.VERSION) }
 }
 
 subprojects {
@@ -68,8 +70,4 @@ subprojects {
         // testImplementation(kotlin("test"))
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Dependency.Kotlin.Coroutines.VERSION}")
     }
-}
-
-kotlin {
-    jvmToolchain(Dependency.Java.VERSION)
 }
