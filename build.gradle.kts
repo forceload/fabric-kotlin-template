@@ -5,8 +5,7 @@ plugins {
     id("fabric-loom") version Dependency.Loom.VERSION
 }
 
-//group = project.extra["group"] as String
-group = "io.github.forceload"
+group = project.extra["group"] as String
 version = project.extra["mod_version"] as String
 
 val fabricLanguageKotlin =
