@@ -42,6 +42,26 @@ subprojects {
     tasks {
         jar { from("LICENSE") { rename { "${it}_${base.archivesName}" } } }
         test { useJUnitPlatform() }
+
+        processResources {
+            filesMatching("fabric.mod.json") {
+                expand(
+                    "version" to project.extra["mod_version"] as String,
+                    "fabricloader" to project.extra["loader_version"] as String,
+                    "fabric_api" to fabricVersion, "fabric_language_kotlin" to fabricLanguageKotlin,
+                    "minecraft" to project.extra["minecraft_version"] as String, "java" to Dependency.Java.VERSION,
+                    "mod_id" to project.extra["mod_id"] as String
+                )
+            }
+
+            filesMatching("*.mixins.json") {
+                expand("java" to Dependency.Java.VERSION, "mod_id" to project.extra["mod_id"] as String)
+            }
+
+            filesMatching("**/*.json") {
+                expand("mod_id" to project.extra["mod_id"] as String)
+            }
+        }
     }
 
     dependencies {
