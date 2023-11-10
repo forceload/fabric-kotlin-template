@@ -44,18 +44,23 @@ subprojects {
                 expand(
                     "version" to project.extra["mod_version"] as String,
                     "fabricloader" to project.extra["loader_version"] as String,
-                    "fabric_api" to project.extra["fabricVersion"], "fabric_language_kotlin" to project.extra["fabricLanguageKotlin"],
+                    "fabric_api" to project.parent!!.extra["fabricVersion"] as String,
+                    "fabric_language_kotlin" to project.parent!!.extra["fabricLanguageKotlin"] as String,
                     "minecraft" to project.extra["minecraft_version"] as String, "java" to Dependency.Java.VERSION,
-                    "mod_id" to project.extra["mod_id"] as String, "group" to project.extra["group"] as String
+                    "mod_id" to project.extra["mod_id"] as String, "mod_entrypoint" to project.parent!!.extra["mod_entrypoint"],
+                    "group" to project.parent!!.providers.gradleProperty("group")
                 )
             }
 
             filesMatching("*.mixins.json") {
-                expand("java" to Dependency.Java.VERSION, "mod_id" to project.extra["mod_id"] as String)
+                expand(
+                    "java" to Dependency.Java.VERSION, "mod_id" to project.extra["mod_id"] as String,
+                    "group" to project.parent!!.providers.gradleProperty("group")
+                )
             }
 
             filesMatching("**/*.json") {
-                expand("mod_id" to project.extra["mod_id"] as String)
+                expand("mod_id" to project.extra["mod_id"] as String,)
             }
         }
     }
