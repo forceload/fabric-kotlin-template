@@ -29,6 +29,7 @@ allprojects {
         kotlinOptions.jvmTarget = Dependency.Java.VERSION.toString()
     }
 
+    tasks.withType<ProcessResources> { outputs.upToDateWhen { false } }
     kotlin { jvmToolchain(Dependency.Java.VERSION) }
 }
 
@@ -48,19 +49,19 @@ subprojects {
                     "fabric_language_kotlin" to project.parent!!.extra["fabricLanguageKotlin"] as String,
                     "minecraft" to project.extra["minecraft_version"] as String, "java" to Dependency.Java.VERSION,
                     "mod_id" to project.extra["mod_id"] as String, "mod_entrypoint" to project.parent!!.extra["mod_entrypoint"],
-                    "group" to project.parent!!.providers.gradleProperty("group")
+                    "group" to project.parent!!.providers.gradleProperty("group").get()
                 )
             }
 
             filesMatching("*.mixins.json") {
                 expand(
                     "java" to Dependency.Java.VERSION, "mod_id" to project.extra["mod_id"] as String,
-                    "group" to project.parent!!.providers.gradleProperty("group")
+                    "group" to project.parent!!.providers.gradleProperty("group").get()
                 )
             }
 
             filesMatching("**/*.json") {
-                expand("mod_id" to project.extra["mod_id"] as String,)
+                expand("mod_id" to project.extra["mod_id"] as String)
             }
         }
     }
