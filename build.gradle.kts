@@ -1,8 +1,10 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version Dependency.Kotlin.VERSION
     id("fabric-loom") version Dependency.Loom.VERSION apply false
+    kotlin("plugin.serialization") version Dependency.Serialization.VERSION
 }
 
 group = providers.gradleProperty("group").get()
@@ -25,8 +27,16 @@ allprojects {
     apply(plugin = "org.jetbrains.kotlin.jvm")
     repositories { mavenCentral() }
 
+    java {
+        toolchain {
+            version = Dependency.Java.VERSION
+        }
+    }
+
     tasks.withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = Dependency.Java.VERSION.toString()
+        compilerOptions {
+            jvmTarget.set(JvmTarget.valueOf("JVM_${Dependency.Java.VERSION}"))
+        }
     }
 
     tasks.withType<ProcessResources> { outputs.upToDateWhen { false } }
@@ -71,5 +81,6 @@ subprojects {
 
         implementation(kotlin("stdlib"))
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Dependency.Kotlin.Coroutines.VERSION}")
+        implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:${Dependency.Serialization.Json.VERSION}")
     }
 }
